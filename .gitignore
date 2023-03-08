@@ -1,0 +1,4 @@
+.idea
+venv
+word_trainer/api/migrations
+word_trainer/dictionary/migrations
