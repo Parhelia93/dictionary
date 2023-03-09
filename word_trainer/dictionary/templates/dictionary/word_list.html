@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <a href="#">New word</a>
+    <br>
+    <a href="#">New Group</a>
+    <br>
+    <a href="{% url 'my_list' %}">My Dictionary</a>
+    <ul>
+        <!-- Iterate over object_list -->
+        {% for object in object_list %}
+        <!-- Display Objects -->
+        <li>{{ object.word }}</li>
+        <li>{{ object.user_flag }}</li>
+        {% if object in word_details %}
+            <li>Contain</li>
+        {% else %}
+            <li>Not contain</li>
+        {% endif %}
+
+        <hr/>
+        <!-- If object_list is empty  -->
+        {% empty %}
+        <li>No objects yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
