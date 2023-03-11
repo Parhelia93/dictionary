@@ -9,12 +9,13 @@
         <!-- Iterate over object_list -->
         {% for object in object_list %}
         <!-- Display Objects -->
+        <li><a href="{%url 'word_detail' object.pk%}">#</a></li>
         <li>{{ object.word }}</li>
         <li>{{ object.translate }}</li>
         <li>{{ object.add_date }}</li>
         <li>{{ object.wordstage }}</li>
         <li>{{ object.wordstage.changed_date }}</li>
-        <li>{{ object.word_group.all }}</li>
+
         <hr/>
         <!-- If object_list is empty  -->
         {% empty %}

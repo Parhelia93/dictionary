@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul>
+        <!-- Iterate over object_list -->
+
+        <!-- Display Objects -->
+    <li>{{ object.add_date }}</li>
+    <li>{{ object.word }}</li>
+    <li>{{ object.translate }}</li>
+    <li>{{ object.description }}</li>
+    <li>{{ object.wordstage.name }}</li>
+    <li>{{ object.wordstage.changed_date }}</li>
+    <hr>
+    <ul>
+    {% for wg in object.word_group.all %}
+        <li>{{wg.name}}</li>
+    {% endfor %}
+    </ul>
+    <hr>
+    <a href="">Update</a>
+    <br>
+    <a href="">Delete</a>
+    <hr/>
+</ul>
+</body>
+</html>

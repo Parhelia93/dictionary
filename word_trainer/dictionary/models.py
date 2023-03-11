@@ -6,6 +6,7 @@ class Profile(models.Model):
     telegram_id = models.CharField(max_length=50, blank=True)
     profile_picture = models.ImageField(blank=True)
     django_user = models.OneToOneField(User, on_delete=models.CASCADE)
+    repeat_timeout = models.IntegerField(default=30)
 
     def __str__(self):
         return str(self.django_user)
@@ -44,9 +45,11 @@ class WordDetail(models.Model):
 class WordStage(models.Model):
     STAGE_NEW = 'New'
     STAGE_KNOW = 'Know'
+    STAGE_REPEAT = 'Repeat'
     STAGE_NAMES = [
         (STAGE_NEW, 'New'),
-        (STAGE_KNOW, 'Know')
+        (STAGE_KNOW, 'Know'),
+        (STAGE_REPEAT, 'Repeat')
     ]
 
     name = models.CharField(max_length=10, choices=STAGE_NAMES, default=STAGE_NEW)
