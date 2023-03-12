@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 class Profile(models.Model):
@@ -30,18 +31,6 @@ class WordGroup(models.Model):
         return self.name
 
 
-class WordDetail(models.Model):
-    translate = models.CharField(max_length=25)
-    description = models.TextField(max_length=50, blank=True)
-    add_date = models.DateTimeField(auto_now_add=True)
-    word = models.ForeignKey(Word, on_delete=models.CASCADE)
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    word_group = models.ManyToManyField(WordGroup)
-
-    def __str__(self):
-        return f'{self.translate} - {self.profile}'
-
-
 class WordStage(models.Model):
     STAGE_NEW = 'New'
     STAGE_KNOW = 'Know'
@@ -54,10 +43,25 @@ class WordStage(models.Model):
 
     name = models.CharField(max_length=10, choices=STAGE_NAMES, default=STAGE_NEW)
     changed_date = models.DateTimeField(auto_now=True)
-    word_stage = models.OneToOneField(WordDetail, on_delete=models.CASCADE)
+    word_stage = models.OneToOneField('WordDetail', on_delete=models.CASCADE, blank=True)
 
     def __str__(self):
         return self.name
+
+
+class WordDetail(models.Model):
+    translate = models.CharField(max_length=25)
+    description = models.TextField(max_length=50, blank=True)
+    add_date = models.DateTimeField(auto_now_add=True)
+    word = models.ForeignKey(Word, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    word_group = models.ManyToManyField(WordGroup)
+
+    def __str__(self):
+        return f'{self.translate} - {self.profile}'
+
+    def get_absolute_url(self):
+        return reverse('word_detail', args=[self.pk])
 
 
 class WordStatistic(models.Model):
