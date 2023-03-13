@@ -26,6 +26,7 @@ class WordGroup(models.Model):
     name = models.CharField(max_length=25)
     add_date = models.DateTimeField(auto_now_add=True)
     enable_training = models.BooleanField(default=True)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, default=None, blank=True)
 
     def __str__(self):
         return self.name
