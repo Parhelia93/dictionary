@@ -55,7 +55,7 @@ class WordDetail(models.Model):
     add_date = models.DateTimeField(auto_now_add=True)
     word = models.ForeignKey(Word, on_delete=models.CASCADE)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    word_group = models.ManyToManyField(WordGroup)
+    word_group = models.ManyToManyField(WordGroup, blank=True)
 
     def __str__(self):
         return f'{self.translate} - {self.profile}'
