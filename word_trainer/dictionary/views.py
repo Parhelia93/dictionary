@@ -85,3 +85,18 @@ class GroupList(ListView):
 
     def get_queryset(self):
         return get_user_groups(self.request)
+
+
+class CreateGroup(CreateView):
+    model = WordGroup
+    template_name = 'dictionary/group_view.html'
+
+
+class UpdateGroup(UpdateView):
+    model = WordGroup
+    template_name = 'dictionary/group_view.html'
+    fields = ['name']
+
+    def get_success_url(self):
+        return reverse('group_list')
+

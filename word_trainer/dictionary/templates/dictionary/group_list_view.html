@@ -9,6 +9,7 @@
         <!-- Iterate over object_list -->
         {% for object in object_list %}
         <!-- Display Objects -->
+        <li><a href="{% url 'update_group' object.pk %}">#</a></li>
         <li>{{ object.name }}</li>
         <li>{{ object.add_date }}</li>
         <li>{{ object.enable_training }}</li>
