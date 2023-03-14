@@ -1,5 +1,5 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.views import View
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView, CreateView
@@ -28,12 +28,6 @@ class DictionaryListView(ListView):
 class WordDetailView(DetailView):
     model = WordDetail
     template_name = 'dictionary/word_detail_view.html'
-
-
-# class UpdateWordDetailView(UpdateView):
-#     template_name = 'dictionary/update_word_detail_view.html'
-#     model = WordDetail
-#     fields = ['translate', 'description', 'word_group']
 
 
 def create_word_detail(request):
@@ -90,6 +84,17 @@ class GroupList(ListView):
 class CreateGroup(CreateView):
     model = WordGroup
     template_name = 'dictionary/group_view.html'
+    fields = ['name']
+    instance = None
+
+    def get_success_url(self):
+        return reverse('group_list')
+
+    def form_valid(self, form):
+        self.instance = form.save(commit=False)
+        self.instance.profile = get_user_profile(self.request)
+        self.instance.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class UpdateGroup(UpdateView):
